@@ -1,0 +1,1800 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Game Event</name>
+    <events>
+        <variable constant="0" name="IAPState" sid="4431907506781269" static="0" type="number">0</variable>
+        <variable constant="0" name="IsPaused" sid="5040308384709047" static="0" type="number">0</variable>
+        <variable constant="0" name="RockFrequency" sid="9508477241436603" static="0" type="number">0</variable>
+        <variable constant="0" name="EnemyFrequency" sid="545052100139747" static="0" type="number">0</variable>
+        <variable constant="0" name="EnemyVariation" sid="9994741938546708" static="0" type="number">0</variable>
+        <variable constant="0" name="BackgroundVariation" sid="828472380069484" static="0" type="number">0</variable>
+        <variable constant="0" name="TotalCoin" sid="7858518876140095" static="0" type="number">0</variable>
+        <variable constant="0" name="CoinVariation" sid="7638658374187352" static="0" type="number">0</variable>
+        <variable comment="The total distance run so far, in pixels." constant="0" name="TotalDistance" sid="8302811797266009" static="0" type="number">0</variable>
+        <variable comment="Counts up to &apos;NextBlock&apos;, at which point a new block is created." constant="0" name="CurrentDistance" sid="2337585843643942" static="0" type="number">0</variable>
+        <variable comment="The distance after which to create the next block." constant="0" name="NextBlock" sid="3452495379671465" static="0" type="number">600</variable>
+        <comment>Make sure everything moves left across the screen (since the default 0 degrees is right)</comment>
+        <event-block sid="9944965589593903">
+            <conditions>
+                <condition id="5" name="Is downloading update" sid="8292243362242369" type="Browser" />
+            </conditions>
+            <actions>
+                <action id="0" name="Set text" sid="3143262172186109" type="UpdateBox">
+                    <param id="0" name="Text">&quot;Status: Downloading update...&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="400734779677358">
+            <conditions>
+                <condition id="5" inverted="1" name="Is downloading update" sid="7208986131363558" type="Browser" />
+            </conditions>
+            <actions>
+                <action id="0" name="Set text" sid="6452791333476686" type="UpdateBox">
+                    <param id="0" name="Text">&quot;Status: Updated&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="9746286261912922">
+            <conditions>
+                <condition id="6" name="On update ready" sid="5211973303864462" type="Browser" />
+            </conditions>
+            <actions>
+                <action id="0" name="Alert" sid="2646422452349935" type="Browser">
+                    <param id="0" name="Message">&quot;Game updated.&quot;</param>
+                </action>
+                <action id="9" name="Reload" sid="910899411794582" type="Browser" />
+            </actions>
+        </event-block>
+        <event-block sid="5208792150282612">
+            <conditions>
+                <condition id="-2" name="On start of layout" sid="3689706008069587" type="System" />
+            </conditions>
+            <actions>
+                <action id="5" name="Set web font" sid="8822621422563922" type="UpdateBox">
+                    <param id="0" name="Family name">&quot;allerregular&quot;</param>
+                    <param id="1" name="CSS URL">&quot;stylesheet.css&quot;</param>
+                </action>
+                <action id="5" name="Set web font" sid="7448355955248998" type="VersionBox">
+                    <param id="0" name="Family name">&quot;allerregular&quot;</param>
+                    <param id="1" name="CSS URL">&quot;stylesheet.css&quot;</param>
+                </action>
+                <action id="5" name="Set web font" sid="9980605928756306" type="TextGameover">
+                    <param id="0" name="Family name">&quot;allerregular&quot;</param>
+                    <param id="1" name="CSS URL">&quot;stylesheet.css&quot;</param>
+                </action>
+                <action id="5" name="Set web font" sid="6519002459199336" type="TextPayment">
+                    <param id="0" name="Family name">&quot;allerregular&quot;</param>
+                    <param id="1" name="CSS URL">&quot;stylesheet.css&quot;</param>
+                </action>
+                <action id="4" name="Preload" sid="2004914060164603" type="Audio">
+                    <param id="0" name="Audio file">ingame</param>
+                </action>
+                <action id="4" name="Preload" sid="208372681897263" type="Audio">
+                    <param id="0" name="Audio file">gameover</param>
+                </action>
+                <action id="4" name="Preload" sid="5819838793993846" type="Audio">
+                    <param id="0" name="Audio file">coin</param>
+                </action>
+                <action id="4" name="Preload" sid="5903256645599017" type="Audio">
+                    <param id="0" name="Audio file">break_rock</param>
+                </action>
+                <action id="0" name="Play" sid="20195329950606" type="Audio">
+                    <param id="0" name="Audio file">ingame</param>
+                    <param id="2" name="Loop">1</param>
+                    <param id="3" name="Volume">0</param>
+                    <param id="1" name="Tag (optional)">&quot;ingame&quot;</param>
+                </action>
+                <action behavior="Bullet" id="3" name="Set angle of motion" sid="3675500124683912" type="TiledBackground">
+                    <param id="0" name="Angle">180</param>
+                </action>
+                <action behavior="Bullet" id="3" name="Set angle of motion" sid="1430637912980624" type="Cloud">
+                    <param id="0" name="Angle">180</param>
+                </action>
+                <action behavior="Bullet" id="3" name="Set angle of motion" sid="1078970205362382" type="SteelMid">
+                    <param id="0" name="Angle">180</param>
+                </action>
+                <action behavior="Bullet" id="3" name="Set angle of motion" sid="8316645945143204" type="Steel">
+                    <param id="0" name="Angle">180</param>
+                </action>
+                <action behavior="Bullet" id="3" name="Set angle of motion" sid="7326169789247481" type="Bush">
+                    <param id="0" name="Angle">180</param>
+                </action>
+                <action behavior="Bullet" id="3" name="Set angle of motion" sid="8833148897688519" type="Cactus">
+                    <param id="0" name="Angle">180</param>
+                </action>
+                <action behavior="Bullet" id="3" name="Set angle of motion" sid="4900401812556443" type="Plant">
+                    <param id="0" name="Angle">180</param>
+                </action>
+                <action behavior="Bullet" id="3" name="Set angle of motion" sid="4982475581466655" type="HillSmall">
+                    <param id="0" name="Angle">180</param>
+                </action>
+                <action behavior="Bullet" id="3" name="Set angle of motion" sid="4411184780396908" type="HillLarge">
+                    <param id="0" name="Angle">180</param>
+                </action>
+                <action disabled="1" id="0" name="Add product ID" sid="2865063321381115" type="IAP">
+                    <param id="0" name="Product ID">&quot;yupiFullVersion&quot;</param>
+                </action>
+                <action id="0" name="Show banner ad" sid="5400534382544617" type="CocoonJS">
+                    <param id="0" name="Layout">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Wrap the scrolling background infinitely by moving it back after it&apos;s scrolled the width of the main image to the left.</comment>
+        <event-block sid="1824278850829203">
+            <conditions>
+                <condition id="-1" name="Compare X" sid="6108723687483977" type="TiledBackground">
+                    <param id="0" name="Comparison">3</param>
+                    <param id="1" name="X co-ordinate">0</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-1" name="Set X" sid="5017238880622884" type="TiledBackground">
+                    <param id="0" name="X">0</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="5381282857379944">
+            <conditions>
+                <condition id="-1" name="Every tick" sid="4786187013306636" type="System" />
+            </conditions>
+            <actions>
+                <action id="-10" name="Add to" sid="8717309053046523" type="System">
+                    <param id="0" name="Variable">CurrentDistance</param>
+                    <param id="1" name="Value">SteelMid.Bullet.Speed * dt</param>
+                </action>
+                <action id="-10" name="Add to" sid="7146857901211378" type="System">
+                    <param id="0" name="Variable">TotalDistance</param>
+                    <param id="1" name="Value">SteelMid.Bullet.Speed * dt</param>
+                </action>
+                <action id="0" name="Set text" sid="6382230964555593" type="VersionBox">
+                    <param id="0" name="Text">&quot;Version: &quot; &amp; projectversion</param>
+                </action>
+                <action id="0" name="Set text" sid="4668334058155742" type="DebugBox">
+                    <param id="0" name="Text">floor(Player.X)</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="8743483188933442">
+            <conditions>
+                <condition id="-1" name="Compare X" sid="2757285633134773" type="Player">
+                    <param id="0" name="Comparison">3</param>
+                    <param id="1" name="X co-ordinate">Player.Width * 2</param>
+                </condition>
+            </conditions>
+            <actions />
+            <sub-events>
+                <event-block sid="4762736990937503">
+                    <conditions>
+                        <condition behavior="Platform" id="9" name="On landed" sid="94917608900979" type="Player" />
+                    </conditions>
+                    <actions>
+                        <action id="-1" name="Set X" sid="8519973388139578" type="Player">
+                            <param id="0" name="X">Player.Width * 2</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <comment>Once CurrentDistance reaches NextBlock, it is time to create a new block.  Create it with a random width and height, then position it just off the right edge of the screen.  Make it move to the left again, then set NextBlock to create another block a random distance after this one.</comment>
+        <event-block sid="7949544308218569">
+            <conditions>
+                <condition id="-14" name="Compare variable" sid="944424420834309" type="System">
+                    <param id="0" name="Variable">CurrentDistance</param>
+                    <param id="1" name="Comparison">5</param>
+                    <param id="2" name="Value">NextBlock</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-11" name="Subtract from" sid="6781690881103073" type="System">
+                    <param id="0" name="Variable">CurrentDistance</param>
+                    <param id="1" name="Value">NextBlock</param>
+                </action>
+                <action id="-3" name="Create object" sid="1993889735908703" type="System">
+                    <param id="0" name="Object to create">SteelMid</param>
+                    <param id="1" name="Layer">&quot;Game&quot;</param>
+                    <param id="2" name="X">0</param>
+                    <param id="3" name="Y">0</param>
+                </action>
+                <action id="-3" name="Create object" sid="7865822746110514" type="System">
+                    <param id="0" name="Object to create">Steel</param>
+                    <param id="1" name="Layer">&quot;Game&quot;</param>
+                    <param id="2" name="X">0</param>
+                    <param id="3" name="Y">0</param>
+                </action>
+                <action id="-7" name="Set size" sid="8972331724714016" type="SteelMid">
+                    <param id="0" name="Width">100 + random(400)</param>
+                    <param id="1" name="Height">60 + random(180)</param>
+                </action>
+                <action id="-7" name="Set size" sid="5510304608663013" type="SteelMid">
+                    <param id="0" name="Width">128 + random(448)</param>
+                    <param id="1" name="Height">30 + random(180)</param>
+                </action>
+                <action id="-7" name="Set size" sid="6267309108198906" type="Steel">
+                    <param id="0" name="Width">SteelMid.Width</param>
+                    <param id="1" name="Height">64</param>
+                </action>
+                <action id="-3" name="Set position" sid="198978775522661" type="SteelMid">
+                    <param id="0" name="X">LayoutWidth</param>
+                    <param id="1" name="Y">LayoutHeight - Self.Height</param>
+                </action>
+                <action id="-3" name="Set position" sid="5607859077366201" type="Steel">
+                    <param id="0" name="X">LayoutWidth</param>
+                    <param id="1" name="Y">SteelMid.Y</param>
+                </action>
+                <action behavior="Bullet" id="3" name="Set angle of motion" sid="6800939250763033" type="SteelMid">
+                    <param id="0" name="Angle">180</param>
+                </action>
+                <action behavior="Bullet" id="3" name="Set angle of motion" sid="3192752368114289" type="Steel">
+                    <param id="0" name="Angle">180</param>
+                </action>
+                <action id="-9" name="Set value" sid="2512499033195493" type="System">
+                    <param id="0" name="Variable">NextBlock</param>
+                    <param id="1" name="Value">SteelMid.Width + 20 + random(200)</param>
+                </action>
+                <action id="-9" name="Set value" sid="6360581703356742" type="System">
+                    <param id="0" name="Variable">CoinVariation</param>
+                    <param id="1" name="Value">round(Steel.Width / 64)</param>
+                </action>
+                <action id="-9" name="Set value" sid="4309232046108594" type="System">
+                    <param id="0" name="Variable">BackgroundVariation</param>
+                    <param id="1" name="Value">floor(random(0, 5))</param>
+                </action>
+                <action id="-9" name="Set value" sid="793475578103933" type="System">
+                    <param id="0" name="Variable">EnemyVariation</param>
+                    <param id="1" name="Value">floor(random(0, 2))</param>
+                </action>
+                <action id="-9" name="Set value" sid="8629082109972908" type="System">
+                    <param id="0" name="Variable">EnemyFrequency</param>
+                    <param id="1" name="Value">floor(random(0, 2))</param>
+                </action>
+                <action id="-9" name="Set value" sid="5399537277931869" type="System">
+                    <param id="0" name="Variable">RockFrequency</param>
+                    <param id="1" name="Value">floor(random(0, 2))</param>
+                </action>
+            </actions>
+            <sub-events>
+                <event-block sid="7617515778072183">
+                    <conditions>
+                        <condition id="-12" name="Repeat" sid="8809724785918217" type="System">
+                            <param id="0" name="Count">CoinVariation</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="7032934961709534">
+                            <conditions>
+                                <condition id="-8" name="Compare two values" sid="5355756966438478" type="System">
+                                    <param id="0" name="First value">loopindex</param>
+                                    <param id="1" name="Comparison">1</param>
+                                    <param id="2" name="Second value">0</param>
+                                </condition>
+                                <condition id="-8" name="Compare two values" sid="8829960058163064" type="System">
+                                    <param id="0" name="First value">loopindex % 2</param>
+                                    <param id="1" name="Comparison">1</param>
+                                    <param id="2" name="Second value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-3" name="Create object" sid="9467355918272934" type="System">
+                                    <param id="0" name="Object to create">Coin</param>
+                                    <param id="1" name="Layer">&quot;Game&quot;</param>
+                                    <param id="2" name="X">LayoutWidth + 600</param>
+                                    <param id="3" name="Y">0</param>
+                                </action>
+                                <action id="-3" name="Set position" sid="8586608848595227" type="Coin">
+                                    <param id="0" name="X">Steel.X + (64 * loopindex)</param>
+                                    <param id="1" name="Y">Steel.Y - 64</param>
+                                </action>
+                                <action behavior="Bullet" id="3" name="Set angle of motion" sid="3192417839970697" type="Coin">
+                                    <param id="0" name="Angle">180</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="765941943937918">
+                            <conditions>
+                                <condition id="-8" name="Compare two values" sid="726987571114843" type="System">
+                                    <param id="0" name="First value">loopindex</param>
+                                    <param id="1" name="Comparison">1</param>
+                                    <param id="2" name="Second value">0</param>
+                                </condition>
+                                <condition id="-8" name="Compare two values" sid="6317389547274571" type="System">
+                                    <param id="0" name="First value">loopindex % 2</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Second value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-3" name="Create object" sid="6775891965477733" type="System">
+                                    <param id="0" name="Object to create">Coin</param>
+                                    <param id="1" name="Layer">&quot;Game&quot;</param>
+                                    <param id="2" name="X">LayoutWidth + 600</param>
+                                    <param id="3" name="Y">0</param>
+                                </action>
+                                <action id="-3" name="Set position" sid="2794635416676693" type="Coin">
+                                    <param id="0" name="X">Steel.X + (64 * loopindex)</param>
+                                    <param id="1" name="Y">Steel.Y - 128</param>
+                                </action>
+                                <action behavior="Bullet" id="3" name="Set angle of motion" sid="5081253716779863" type="Coin">
+                                    <param id="0" name="Angle">180</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-group description="" sid="6048514276278319" title="Variation">
+                    <sub-events>
+                        <event-block sid="7827442304176198">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="8267446380306172" type="System">
+                                    <param id="0" name="Variable">BackgroundVariation</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-3" name="Create object" sid="7928102046068809" type="System">
+                                    <param id="0" name="Object to create">Bush</param>
+                                    <param id="1" name="Layer">&quot;Background&quot;</param>
+                                    <param id="2" name="X">LayoutWidth + 600</param>
+                                    <param id="3" name="Y">0</param>
+                                </action>
+                                <action id="-3" name="Set position" sid="1272122398201778" type="Bush">
+                                    <param id="0" name="X">random(Steel.X + (Bush.Width / 2), (Steel.X + Steel.Width) - (Bush.Width / 2))</param>
+                                    <param id="1" name="Y">Steel.Y - (Bush.Height / 2)</param>
+                                </action>
+                                <action behavior="Bullet" id="3" name="Set angle of motion" sid="1932901579389768" type="Bush">
+                                    <param id="0" name="Angle">180</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="9414529205272731">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="4900218971205827" type="System">
+                                    <param id="0" name="Variable">BackgroundVariation</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">1</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-3" name="Create object" sid="2923877235681129" type="System">
+                                    <param id="0" name="Object to create">Cactus</param>
+                                    <param id="1" name="Layer">&quot;Background&quot;</param>
+                                    <param id="2" name="X">LayoutWidth + 600</param>
+                                    <param id="3" name="Y">0</param>
+                                </action>
+                                <action id="-3" name="Set position" sid="9692665262943015" type="Cactus">
+                                    <param id="0" name="X">random(Steel.X + (Cactus.Width / 2), (Steel.X + Steel.Width) - (Cactus.Width / 2))</param>
+                                    <param id="1" name="Y">Steel.Y - (Cactus.Height / 2)</param>
+                                </action>
+                                <action behavior="Bullet" id="3" name="Set angle of motion" sid="6503995905180736" type="Cactus">
+                                    <param id="0" name="Angle">180</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="7038270593137009">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="2937195460253324" type="System">
+                                    <param id="0" name="Variable">BackgroundVariation</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">2</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-3" name="Create object" sid="2705937262611887" type="System">
+                                    <param id="0" name="Object to create">Plant</param>
+                                    <param id="1" name="Layer">&quot;Background&quot;</param>
+                                    <param id="2" name="X">LayoutWidth + 600</param>
+                                    <param id="3" name="Y">0</param>
+                                </action>
+                                <action id="-3" name="Set position" sid="32066488981526" type="Plant">
+                                    <param id="0" name="X">random(Steel.X + (Plant.Width / 2), (Steel.X + Steel.Width) - (Plant.Width / 2))</param>
+                                    <param id="1" name="Y">Steel.Y - (Plant.Height / 2)</param>
+                                </action>
+                                <action behavior="Bullet" id="3" name="Set angle of motion" sid="3999835187589295" type="Plant">
+                                    <param id="0" name="Angle">180</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="8728713121906399">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="4945361845280016" type="System">
+                                    <param id="0" name="Variable">BackgroundVariation</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">3</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-3" name="Create object" sid="7900930298306017" type="System">
+                                    <param id="0" name="Object to create">HillLarge</param>
+                                    <param id="1" name="Layer">&quot;Background&quot;</param>
+                                    <param id="2" name="X">LayoutWidth + 600</param>
+                                    <param id="3" name="Y">0</param>
+                                </action>
+                                <action id="-3" name="Set position" sid="6811278562344274" type="HillLarge">
+                                    <param id="0" name="X">random(Steel.X + (HillLarge.Width / 2), (Steel.X + Steel.Width) - (HillLarge.Width / 2))</param>
+                                    <param id="1" name="Y">Steel.Y - (HillLarge.Height / 2)</param>
+                                </action>
+                                <action behavior="Bullet" id="3" name="Set angle of motion" sid="615749350217421" type="HillLarge">
+                                    <param id="0" name="Angle">180</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="8327210468436517">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="1799091535100104" type="System">
+                                    <param id="0" name="Variable">BackgroundVariation</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">4</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-3" name="Create object" sid="1077696814960796" type="System">
+                                    <param id="0" name="Object to create">HillSmall</param>
+                                    <param id="1" name="Layer">&quot;Background&quot;</param>
+                                    <param id="2" name="X">LayoutWidth + 600</param>
+                                    <param id="3" name="Y">0</param>
+                                </action>
+                                <action id="-3" name="Set position" sid="2614302438519589" type="HillSmall">
+                                    <param id="0" name="X">random(Steel.X + (HillSmall.Width / 2), (Steel.X + Steel.Width) - (HillSmall.Width / 2))</param>
+                                    <param id="1" name="Y">Steel.Y - (HillSmall.Height / 2)</param>
+                                </action>
+                                <action behavior="Bullet" id="3" name="Set angle of motion" sid="4231223106730968" type="HillSmall">
+                                    <param id="0" name="Angle">180</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="598804388358661">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="6079047743756509" type="System">
+                                    <param id="0" name="Variable">EnemyFrequency</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions />
+                            <sub-events>
+                                <event-block sid="5038137207943351">
+                                    <conditions>
+                                        <condition id="-14" name="Compare variable" sid="4191755997824647" type="System">
+                                            <param id="0" name="Variable">EnemyVariation</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">0</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-3" name="Create object" sid="6642599084778396" type="System">
+                                            <param id="0" name="Object to create">Slime</param>
+                                            <param id="1" name="Layer">&quot;Game&quot;</param>
+                                            <param id="2" name="X">LayoutWidth + 600</param>
+                                            <param id="3" name="Y">0</param>
+                                        </action>
+                                        <action id="-3" name="Set position" sid="8964590993693381" type="Slime">
+                                            <param id="0" name="X">(Steel.X + Steel.Width) - (Slime.Width / 2)</param>
+                                            <param id="1" name="Y">Steel.Y - (Slime.Height / 2)</param>
+                                        </action>
+                                        <action behavior="Bullet" id="3" name="Set angle of motion" sid="5852313331430348" type="Slime">
+                                            <param id="0" name="Angle">180</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                                <event-block sid="2651813895506919">
+                                    <conditions>
+                                        <condition id="-14" name="Compare variable" sid="1062859545437886" type="System">
+                                            <param id="0" name="Variable">EnemyVariation</param>
+                                            <param id="1" name="Comparison">0</param>
+                                            <param id="2" name="Value">1</param>
+                                        </condition>
+                                    </conditions>
+                                    <actions>
+                                        <action id="-3" name="Create object" sid="1528376569829946" type="System">
+                                            <param id="0" name="Object to create">Fly</param>
+                                            <param id="1" name="Layer">&quot;Game&quot;</param>
+                                            <param id="2" name="X">LayoutWidth + 600</param>
+                                            <param id="3" name="Y">0</param>
+                                        </action>
+                                        <action id="-3" name="Set position" sid="8379636440642715" type="Fly">
+                                            <param id="0" name="X">(Steel.X + Steel.Width) - (Fly.Width / 2)</param>
+                                            <param id="1" name="Y">Steel.Y - (Fly.Height * 3)</param>
+                                        </action>
+                                        <action behavior="Bullet" id="3" name="Set angle of motion" sid="8585759369900618" type="Fly">
+                                            <param id="0" name="Angle">180</param>
+                                        </action>
+                                    </actions>
+                                </event-block>
+                            </sub-events>
+                        </event-block>
+                        <event-block any="1" sid="1131760966137166">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="7616650711786953" type="System">
+                                    <param id="0" name="Variable">RockFrequency</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">0</param>
+                                </condition>
+                                <condition id="-14" name="Compare variable" sid="3235434429921438" type="System">
+                                    <param id="0" name="Variable">RockFrequency</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">1</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="-3" name="Create object" sid="6681231410946309" type="System">
+                                    <param id="0" name="Object to create">RockBig</param>
+                                    <param id="1" name="Layer">&quot;Game&quot;</param>
+                                    <param id="2" name="X">LayoutWidth + 600</param>
+                                    <param id="3" name="Y">0</param>
+                                </action>
+                                <action id="-3" name="Set position" sid="7145802199392543" type="RockBig">
+                                    <param id="0" name="X">floor(random(Steel.X, Steel.X + Steel.Width))</param>
+                                    <param id="1" name="Y">Steel.Y - 128</param>
+                                </action>
+                                <action behavior="Bullet" id="3" name="Set angle of motion" sid="7532716044767713" type="RockBig">
+                                    <param id="0" name="Angle">180</param>
+                                </action>
+                                <action id="-25" name="Move to bottom" sid="9901717446131094" type="RockBig" />
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-group>
+            </sub-events>
+        </event-block>
+        <event-group description="" sid="8643208776296895" title="Controls">
+            <sub-events>
+                <event-block sid="7464414447213127">
+                    <conditions>
+                        <condition behavior="Platform" id="2" name="Is on floor" sid="8704340595375655" type="Player" />
+                    </conditions>
+                    <actions>
+                        <action behavior="Platform" id="7" name="Simulate control" sid="3891664080196328" type="Player">
+                            <param id="0" name="Control">1</param>
+                        </action>
+                    </actions>
+                </event-block>
+                <comment>On any user input at all, make the character jump.</comment>
+                <event-block any="1" sid="186548225751979">
+                    <conditions>
+                        <condition id="0" name="On any touch start" sid="9735248956348412" type="Touch" />
+                        <condition id="1" name="On any key pressed" sid="851183904857144" type="Keyboard" />
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="561444464870362">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="44266324185806" type="System">
+                                    <param id="0" name="Variable">IsPaused</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action behavior="Platform" id="7" name="Simulate control" sid="7209966567390035" type="Player">
+                                    <param id="0" name="Control">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block any="1" sid="5832818771498241">
+                    <conditions>
+                        <condition id="3" name="On touched object" sid="5680977634626599" type="Touch">
+                            <param id="0" name="Object">ButtonReload</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="5671871093808418">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="1069752114624666" type="System">
+                                    <param id="0" name="Variable">IsPaused</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">1</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="33" name="Stop all" sid="6290053727753835" type="Audio" />
+                                <action id="-21" name="Reset global variables" sid="6160638060795677" type="System" />
+                                <action id="-26" name="Restart layout" sid="2087222061693737" type="System" />
+                                <action id="-13" name="Set time scale" sid="5327824893505415" type="System">
+                                    <param id="0" name="Time scale">1.0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block sid="1441830845134105">
+                    <conditions>
+                        <condition id="3" name="On touched object" sid="8363851146844478" type="Touch">
+                            <param id="0" name="Object">ButtonStore</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="984378549500182">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="8596975827901853" type="System">
+                                    <param id="0" name="Variable">IsPaused</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Call function" sid="4573176573171334" type="Function">
+                                    <param id="0" name="Name">&quot;CreatePayment&quot;</param>
+                                    <param id="1" name="Parameter {n}"></param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="6528283216205843">
+                            <conditions>
+                                <condition id="-22" name="Else" sid="1957137503577062" type="System" />
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Call function" sid="5504602756407089" type="Function">
+                                    <param id="0" name="Name">&quot;DestroyPayment&quot;</param>
+                                    <param id="1" name="Parameter {n}"></param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <comment>While on floor, keep holding the &quot;run right&quot; control, so the character keeps running.</comment>
+        <comment>Keep incrementing the current and total distances, and display the total distance in a text object.</comment>
+        <comment>Destroy blocks that go off the left of the screen so they don&apos;t keep taking up memory or CPU.</comment>
+        <event-block sid="4459278370050411">
+            <conditions>
+                <condition id="-1" name="Compare X" sid="7572254966592041" type="SteelMid">
+                    <param id="0" name="Comparison">2</param>
+                    <param id="1" name="X co-ordinate">-Self.Width</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Destroy" sid="9245011843617674" type="SteelMid" />
+            </actions>
+        </event-block>
+        <event-block sid="8063111269648635">
+            <conditions>
+                <condition id="-1" name="Compare X" sid="9719809373967115" type="Steel">
+                    <param id="0" name="Comparison">2</param>
+                    <param id="1" name="X co-ordinate">-Self.Width</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Destroy" sid="7007101253368024" type="Steel" />
+            </actions>
+        </event-block>
+        <event-block sid="4085229166049609">
+            <conditions>
+                <condition id="-1" name="Compare X" sid="8484018547146107" type="RockBig">
+                    <param id="0" name="Comparison">2</param>
+                    <param id="1" name="X co-ordinate">-Self.Width</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Destroy" sid="5238918622539612" type="RockBig" />
+            </actions>
+        </event-block>
+        <event-block sid="2126630820636893">
+            <conditions>
+                <condition id="-1" name="Compare X" sid="5311851184638887" type="Destructable">
+                    <param id="0" name="Comparison">2</param>
+                    <param id="1" name="X co-ordinate">-Self.Width</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Destroy" sid="5960067247015559" type="Destructable" />
+            </actions>
+        </event-block>
+        <event-block sid="2502716767139637">
+            <conditions>
+                <condition id="-1" name="Compare X" sid="4279044205938604" type="Cloud">
+                    <param id="0" name="Comparison">3</param>
+                    <param id="1" name="X co-ordinate">-Self.Width / 2</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-1" name="Set X" sid="7031938833724072" type="Cloud">
+                    <param id="0" name="X">LayoutWidth + Self.Width</param>
+                </action>
+                <action id="-2" name="Set Y" sid="7883908511313562" type="Cloud">
+                    <param id="0" name="Y">random(Cloud.Height / 2, LayoutHeight - (Cloud.Height * 2))</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="7592387358161658">
+            <conditions>
+                <condition id="1" name="Is overlapping another object" sid="3859594599845246" type="RockBig">
+                    <param id="0" name="Object">Coin</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Destroy" sid="694550725331297" type="Coin" />
+            </actions>
+        </event-block>
+        <event-block sid="145518452715572">
+            <conditions>
+                <condition id="0" name="On collision with another object" sid="1825107477437715" type="Player">
+                    <param id="0" name="Object">RockBig</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="0" name="Play" sid="2449923485956568" type="Audio">
+                    <param id="0" name="Audio file">break_rock</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="3" name="Volume">0</param>
+                    <param id="1" name="Tag (optional)">&quot;break_rock&quot;</param>
+                </action>
+                <action id="-3" name="Create object" sid="4670983052846147" type="System">
+                    <param id="0" name="Object to create">RockSmall</param>
+                    <param id="1" name="Layer">&quot;Game&quot;</param>
+                    <param id="2" name="X">LayoutWidth + 600</param>
+                    <param id="3" name="Y">0</param>
+                </action>
+                <action id="-4" name="Set position to another object" sid="9672665961135067" type="RockSmall">
+                    <param id="0" name="Object">RockBig</param>
+                    <param id="1" name="Image point (optional)">0</param>
+                </action>
+                <action disabled="1" id="-3" name="Set position" sid="421336320165066" type="RockSmall">
+                    <param id="0" name="X">floor(random(Steel.X, Steel.X + Steel.Width))</param>
+                    <param id="1" name="Y">Steel.Y - 128</param>
+                </action>
+                <action behavior="Bullet" id="3" name="Set angle of motion" sid="6150795200318923" type="RockSmall">
+                    <param id="0" name="Angle">90</param>
+                </action>
+                <action id="0" name="Set spraying" sid="4735725042940244" type="RockSmall">
+                    <param id="0" name="State">1</param>
+                </action>
+                <action id="-9" name="Destroy" sid="1668162639807325" type="RockBig" />
+            </actions>
+        </event-block>
+        <event-block sid="4294383153979168">
+            <conditions>
+                <condition id="1" name="Is overlapping another object" sid="9284574328344345" type="Player">
+                    <param id="0" name="Object">Coin</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="0" name="Play" sid="9990212969179275" type="Audio">
+                    <param id="0" name="Audio file">coin</param>
+                    <param id="2" name="Loop">0</param>
+                    <param id="3" name="Volume">0</param>
+                    <param id="1" name="Tag (optional)">&quot;coin&quot;</param>
+                </action>
+                <action id="-9" name="Destroy" sid="4473645991383108" type="Coin" />
+                <action id="-10" name="Add to" sid="5398253970896483" type="System">
+                    <param id="0" name="Variable">TotalCoin</param>
+                    <param id="1" name="Value">1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-group collapsed="1" description="" sid="3761613349752415" title="Health">
+            <sub-events>
+                <event-block collapsed="1" sid="7949067071813449">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="5150941072480508" type="Player">
+                            <param id="0" name="Instance variable">health</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">5</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="3513225771115432">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="3784820173079824" type="Heart">
+                                    <param id="0" name="Unique ID">21</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="5043233401113368" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="9695713873084912">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="109332321211405" type="Heart">
+                                    <param id="0" name="Unique ID">20</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="8365664012883185" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="7833248832089967">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="7793394466399338" type="Heart">
+                                    <param id="0" name="Unique ID">19</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="594094443467945" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="2756632615322095">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="9004280102339701" type="Heart">
+                                    <param id="0" name="Unique ID">18</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="2618773869753248" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="8569583057506887">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="4217549536703681" type="Heart">
+                                    <param id="0" name="Unique ID">17</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="6570099351701313" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block collapsed="1" sid="7588539937128805">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="1896855788414746" type="Player">
+                            <param id="0" name="Instance variable">health</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">4.5</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="7713898212621093">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="2553755187522771" type="Heart">
+                                    <param id="0" name="Unique ID">21</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="6572350354166466" type="Heart">
+                                    <param id="0" name="Frame number">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="7688354483863694">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="8553366710875145" type="Heart">
+                                    <param id="0" name="Unique ID">20</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="1013207761895941" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="6838552658244201">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="1401132780794791" type="Heart">
+                                    <param id="0" name="Unique ID">19</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="9206010334047368" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="8547655608695948">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="5526864383315974" type="Heart">
+                                    <param id="0" name="Unique ID">18</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="104618553381742" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="885148378481222">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="418291032283588" type="Heart">
+                                    <param id="0" name="Unique ID">17</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="4089734948059283" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block collapsed="1" sid="1500165497965248">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="8796810905392109" type="Player">
+                            <param id="0" name="Instance variable">health</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">4</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="2799073016339989">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="7698693341534188" type="Heart">
+                                    <param id="0" name="Unique ID">21</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="5431361021627279" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="6352957762735575">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="8910111498388743" type="Heart">
+                                    <param id="0" name="Unique ID">20</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="3093022808050258" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="6869007645111668">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="3523199851653651" type="Heart">
+                                    <param id="0" name="Unique ID">19</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="3437766021199276" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="7500908925035206">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="1878101759356319" type="Heart">
+                                    <param id="0" name="Unique ID">18</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="3924309282873697" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="809576674139969">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="7758603940249489" type="Heart">
+                                    <param id="0" name="Unique ID">17</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="8427248451197998" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block collapsed="1" sid="544998290974897">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="3094568684630011" type="Player">
+                            <param id="0" name="Instance variable">health</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">3.5</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="9648300246833396">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="3483501161746444" type="Heart">
+                                    <param id="0" name="Unique ID">21</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="5437582219394126" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="9080681902583023">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="9374590002588086" type="Heart">
+                                    <param id="0" name="Unique ID">20</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="1740469590072881" type="Heart">
+                                    <param id="0" name="Frame number">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="6289923839348373">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="7214394210376928" type="Heart">
+                                    <param id="0" name="Unique ID">19</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="2596425929962743" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="3641870505929399">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="5183869361266894" type="Heart">
+                                    <param id="0" name="Unique ID">18</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="896781936753739" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="4374789920970176">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="2318220918488114" type="Heart">
+                                    <param id="0" name="Unique ID">17</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="6302221557783236" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block collapsed="1" sid="7941206258518404">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="109531052246758" type="Player">
+                            <param id="0" name="Instance variable">health</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">3</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="5974361902254742">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="3529477879409546" type="Heart">
+                                    <param id="0" name="Unique ID">21</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="159078651601461" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="5560514386582845">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="4944698965201029" type="Heart">
+                                    <param id="0" name="Unique ID">20</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="5095620962008802" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="6817689788169903">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="715844150143129" type="Heart">
+                                    <param id="0" name="Unique ID">19</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="4491841491728123" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="5546094262903092">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="5583932850901212" type="Heart">
+                                    <param id="0" name="Unique ID">18</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="5717445777383276" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="1237566519257755">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="9621145960765767" type="Heart">
+                                    <param id="0" name="Unique ID">17</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="2281990075045229" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block collapsed="1" sid="9381554684588973">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="4885907435005126" type="Player">
+                            <param id="0" name="Instance variable">health</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">2.5</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="3342644152400621">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="2560225107087459" type="Heart">
+                                    <param id="0" name="Unique ID">21</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="8025926001977835" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="2807784662781734">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="9989165014628801" type="Heart">
+                                    <param id="0" name="Unique ID">20</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="1462351906887432" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="1338870666433897">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="8944439854739499" type="Heart">
+                                    <param id="0" name="Unique ID">19</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="9473340310194666" type="Heart">
+                                    <param id="0" name="Frame number">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="3186325263704446">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="239050478809026" type="Heart">
+                                    <param id="0" name="Unique ID">18</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="7421417424562114" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="875441456919179">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="7286482500947065" type="Heart">
+                                    <param id="0" name="Unique ID">17</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="1595364593271264" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block collapsed="1" sid="9987573961307327">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="3191848270223445" type="Player">
+                            <param id="0" name="Instance variable">health</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">2</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="3597209616327748">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="440725126790693" type="Heart">
+                                    <param id="0" name="Unique ID">21</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="83976793515219" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="5093710735424427">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="3886394197491245" type="Heart">
+                                    <param id="0" name="Unique ID">20</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="7480908334648078" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="1093590678690828">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="1376067786953915" type="Heart">
+                                    <param id="0" name="Unique ID">19</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="6923006704505371" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="5213861182097238">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="2954830849884181" type="Heart">
+                                    <param id="0" name="Unique ID">18</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="4189745093734998" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="7428521210226514">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="5391317206403682" type="Heart">
+                                    <param id="0" name="Unique ID">17</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="8586751792482752" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block collapsed="1" sid="2587123876655633">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="1370250062543713" type="Player">
+                            <param id="0" name="Instance variable">health</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">1.5</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="6585095574748384">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="6496582448294432" type="Heart">
+                                    <param id="0" name="Unique ID">21</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="973536117764864" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="9639097031177165">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="4325394180550777" type="Heart">
+                                    <param id="0" name="Unique ID">20</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="5427117937573404" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="9650393591116783">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="6979289556478301" type="Heart">
+                                    <param id="0" name="Unique ID">19</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="4591274638560523" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="9462026278142382">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="1167634039640671" type="Heart">
+                                    <param id="0" name="Unique ID">18</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="264242846477059" type="Heart">
+                                    <param id="0" name="Frame number">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="5047634736687456">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="43620618686748" type="Heart">
+                                    <param id="0" name="Unique ID">17</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="4850894654474658" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block collapsed="1" sid="6190437012267832">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="9272250901971292" type="Player">
+                            <param id="0" name="Instance variable">health</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">1</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="1153769588551439">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="7936795991107447" type="Heart">
+                                    <param id="0" name="Unique ID">21</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="7910975312692758" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="2839526285586903">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="7554897390338083" type="Heart">
+                                    <param id="0" name="Unique ID">20</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="4915564834618292" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="9035057255468783">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="8294541810267884" type="Heart">
+                                    <param id="0" name="Unique ID">19</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="1655524870866283" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="2750392323776179">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="6700788528349286" type="Heart">
+                                    <param id="0" name="Unique ID">18</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="1538458078747964" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="9717370625527686">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="1508716505267143" type="Heart">
+                                    <param id="0" name="Unique ID">17</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="8944374330173588" type="Heart">
+                                    <param id="0" name="Frame number">0</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block collapsed="1" sid="9398152955597596">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="4533751409960739" type="Player">
+                            <param id="0" name="Instance variable">health</param>
+                            <param id="1" name="Comparison">0</param>
+                            <param id="2" name="Value">0.5</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="523238126071879">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="1585596406937289" type="Heart">
+                                    <param id="0" name="Unique ID">21</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="3196472388301631" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="8229803031447661">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="9260181610369541" type="Heart">
+                                    <param id="0" name="Unique ID">20</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="9064936711015266" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="7099322701015686">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="9609722938470166" type="Heart">
+                                    <param id="0" name="Unique ID">19</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="3307465589340612" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="3046861875481372">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="2276555209246494" type="Heart">
+                                    <param id="0" name="Unique ID">18</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="9254285747170417" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="3179467448226496">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="7295380394104522" type="Heart">
+                                    <param id="0" name="Unique ID">17</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="9907195037833386" type="Heart">
+                                    <param id="0" name="Frame number">1</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+                <event-block sid="5105010881960798">
+                    <conditions>
+                        <condition id="-7" name="Compare instance variable" sid="7508519893412348" type="Player">
+                            <param id="0" name="Instance variable">health</param>
+                            <param id="1" name="Comparison">3</param>
+                            <param id="2" name="Value">0</param>
+                        </condition>
+                    </conditions>
+                    <actions />
+                    <sub-events>
+                        <event-block sid="493435151857199">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="4712701256920522" type="Heart">
+                                    <param id="0" name="Unique ID">21</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="2014294004354395" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="5469572755177563">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="566840292455469" type="Heart">
+                                    <param id="0" name="Unique ID">20</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="3907403258143594" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="5058063946960168">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="9594327801313861" type="Heart">
+                                    <param id="0" name="Unique ID">19</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="7284927931908922" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="720448454308941">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="8100877165908008" type="Heart">
+                                    <param id="0" name="Unique ID">18</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="4149810028616063" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="2868403201780421">
+                            <conditions>
+                                <condition id="-14" name="Pick by unique ID" sid="3173772385479374" type="Heart">
+                                    <param id="0" name="Unique ID">17</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="5" name="Set frame" sid="4997929710524019" type="Heart">
+                                    <param id="0" name="Frame number">2</param>
+                                </action>
+                            </actions>
+                        </event-block>
+                        <event-block sid="9507937819045197">
+                            <conditions>
+                                <condition id="-14" name="Compare variable" sid="734379235016505" type="System">
+                                    <param id="0" name="Variable">IsPaused</param>
+                                    <param id="1" name="Comparison">0</param>
+                                    <param id="2" name="Value">0</param>
+                                </condition>
+                            </conditions>
+                            <actions>
+                                <action id="0" name="Call function" sid="7226691173306733" type="Function">
+                                    <param id="0" name="Name">&quot;CreateGameover&quot;</param>
+                                    <param id="1" name="Parameter {n}"></param>
+                                </action>
+                            </actions>
+                        </event-block>
+                    </sub-events>
+                </event-block>
+            </sub-events>
+        </event-group>
+        <event-block sid="7425955662894688">
+            <conditions>
+                <condition id="1" name="Is overlapping another object" sid="3213463579530311" type="Player">
+                    <param id="0" name="Object">Enemies</param>
+                </condition>
+                <condition behavior="Flash" id="0" inverted="1" name="Is flashing" sid="7120732876729812" type="Player" />
+            </conditions>
+            <actions>
+                <action id="-12" name="Subtract from" sid="4257457350702698" type="Player">
+                    <param id="0" name="Instance variable">health</param>
+                    <param id="1" name="Value">0.5</param>
+                </action>
+                <action behavior="Flash" id="0" name="Flash" sid="5230613536022277" type="Player">
+                    <param id="0" name="&apos;On&apos; time">0.1</param>
+                    <param id="1" name="&apos;Off&apos; time">0.1</param>
+                    <param id="2" name="Duration">1.0</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>If the player falls off the bottom of the screen, restart the game.</comment>
+        <event-block sid="5208245002364706">
+            <conditions>
+                <condition id="-2" name="Compare Y" sid="1051469567875043" type="Player">
+                    <param id="0" name="Comparison">4</param>
+                    <param id="1" name="Y co-ordinate">LayoutHeight + (Player.Height / 2)</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-12" name="Subtract from" sid="4128788046885255" type="Player">
+                    <param id="0" name="Instance variable">health</param>
+                    <param id="1" name="Value">1</param>
+                </action>
+                <action id="-3" name="Set position" sid="6057564175724901" type="Player">
+                    <param id="0" name="X">Player.Width * 2</param>
+                    <param id="1" name="Y">Steel.Y - Player.Height / 2</param>
+                </action>
+                <action behavior="Flash" id="0" name="Flash" sid="5270962742865098" type="Player">
+                    <param id="0" name="&apos;On&apos; time">0.1</param>
+                    <param id="1" name="&apos;Off&apos; time">0.1</param>
+                    <param id="2" name="Duration">1.0</param>
+                </action>
+            </actions>
+        </event-block>
+        <comment>Due to the acceleration of the platform movement, we need to do some tweaks to make sure the player doesn&apos;t gradually get pushed off to the left of the screen over time.</comment>
+        <event-block sid="9079254243245853">
+            <conditions>
+                <condition id="-1" name="Compare X" sid="5160304452744419" type="Player">
+                    <param id="0" name="Comparison">2</param>
+                    <param id="1" name="X co-ordinate">105</param>
+                </condition>
+                <condition behavior="Platform" id="2" inverted="1" name="Is on floor" sid="6907689726370903" type="Player" />
+            </conditions>
+            <actions>
+                <action id="-1" name="Set X" sid="6565430376395505" type="Player">
+                    <param id="0" name="X">Self.X + 5 * dt</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="8856078204643727">
+            <conditions>
+                <condition behavior="Platform" id="9" name="On landed" sid="7369618561402137" type="Player" />
+            </conditions>
+            <actions>
+                <action id="-1" name="Set X" sid="1846430160934417" type="Player">
+                    <param id="0" name="X">Self.X + 1</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="4182067883240354">
+            <conditions>
+                <condition id="0" name="On function" sid="9977481477683014" type="Function">
+                    <param id="0" name="Name">&quot;CreateGameover&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="33" name="Stop all" sid="28365521855541" type="Audio" />
+                <action id="0" name="Play" sid="1763640130485513" type="Audio">
+                    <param id="0" name="Audio file">gameover</param>
+                    <param id="2" name="Loop">1</param>
+                    <param id="3" name="Volume">0</param>
+                    <param id="1" name="Tag (optional)">&quot;gameover&quot;</param>
+                </action>
+                <action id="-9" name="Set value" sid="840626021550709" type="System">
+                    <param id="0" name="Variable">IsPaused</param>
+                    <param id="1" name="Value">1</param>
+                </action>
+                <action id="-13" name="Set time scale" sid="7463093176648907" type="System">
+                    <param id="0" name="Time scale">0</param>
+                </action>
+                <action id="-3" name="Set position" sid="2317875658297599" type="MessageBox">
+                    <param id="0" name="X">LayoutWidth / 2</param>
+                    <param id="1" name="Y">LayoutHeight / 2</param>
+                </action>
+                <action id="-3" name="Set position" sid="6983702538915831" type="ButtonReload">
+                    <param id="0" name="X">LayoutWidth / 2</param>
+                    <param id="1" name="Y">LayoutHeight / 2 + (ButtonReload.Height / 3)</param>
+                </action>
+                <action id="-3" name="Set position" sid="2336829310931828" type="TextGameover">
+                    <param id="0" name="X">LayoutWidth / 2</param>
+                    <param id="1" name="Y">LayoutHeight / 2 - TextGameover.Height</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="5593876519298037">
+            <conditions>
+                <condition id="0" name="On function" sid="9365865874732026" type="Function">
+                    <param id="0" name="Name">&quot;CreatePayment&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" sid="3912843437624129" type="System">
+                    <param id="0" name="Variable">IAPState</param>
+                    <param id="1" name="Value">1</param>
+                </action>
+                <action id="-9" name="Set value" sid="3851390408873715" type="System">
+                    <param id="0" name="Variable">IsPaused</param>
+                    <param id="1" name="Value">1</param>
+                </action>
+                <action id="-13" name="Set time scale" sid="9289159703148767" type="System">
+                    <param id="0" name="Time scale">0</param>
+                </action>
+                <action id="-3" name="Set position" sid="6507792382757404" type="MessageBox">
+                    <param id="0" name="X">LayoutWidth / 2</param>
+                    <param id="1" name="Y">LayoutHeight / 2</param>
+                </action>
+                <action id="-3" name="Set position" sid="6104728156941014" type="ButtonUnlock">
+                    <param id="0" name="X">LayoutWidth / 2</param>
+                    <param id="1" name="Y">LayoutHeight / 2 + (ButtonUnlock.Height / 6)</param>
+                </action>
+                <action id="-3" name="Set position" sid="1805459339873426" type="TextPayment">
+                    <param id="0" name="X">LayoutWidth / 2</param>
+                    <param id="1" name="Y">LayoutHeight / 2 - TextPayment.Height</param>
+                </action>
+                <action id="4" name="Request store listing" sid="7361740088678532" type="IAP" />
+            </actions>
+        </event-block>
+        <event-block sid="3948873471314539">
+            <conditions>
+                <condition id="0" name="On function" sid="2700757585629175" type="Function">
+                    <param id="0" name="Name">&quot;DestroyPayment&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" sid="2110599874764083" type="System">
+                    <param id="0" name="Variable">IAPState</param>
+                    <param id="1" name="Value">0</param>
+                </action>
+                <action id="-9" name="Set value" sid="9482974047145169" type="System">
+                    <param id="0" name="Variable">IsPaused</param>
+                    <param id="1" name="Value">0</param>
+                </action>
+                <action id="-13" name="Set time scale" sid="5535459146371102" type="System">
+                    <param id="0" name="Time scale">1</param>
+                </action>
+                <action id="-3" name="Set position" sid="345769477487358" type="MessageBox">
+                    <param id="0" name="X">-400</param>
+                    <param id="1" name="Y">-400</param>
+                </action>
+                <action id="-3" name="Set position" sid="5137996009726665" type="ButtonUnlock">
+                    <param id="0" name="X">-400</param>
+                    <param id="1" name="Y">-400</param>
+                </action>
+                <action id="-3" name="Set position" sid="2902870371654629" type="TextPayment">
+                    <param id="0" name="X">-400</param>
+                    <param id="1" name="Y">-400</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block disabled="1" sid="794032206383214">
+            <conditions>
+                <condition id="4" name="On store listing success" sid="6998574394353214" type="IAP" />
+                <condition id="-14" name="Compare variable" sid="8445990679878291" type="System">
+                    <param id="0" name="Variable">IAPState</param>
+                    <param id="1" name="Comparison">0</param>
+                    <param id="2" name="Value">1</param>
+                </condition>
+            </conditions>
+            <actions />
+            <sub-events>
+                <event-block sid="9505237332130077">
+                    <conditions>
+                        <condition id="4" name="Is touching object" sid="8132450436793179" type="Touch">
+                            <param id="0" name="Object">ButtonUnlock</param>
+                        </condition>
+                    </conditions>
+                    <actions>
+                        <action id="1" name="Purchase product" sid="2360849593883745" type="IAP">
+                            <param id="0" name="Product ID">&quot;yupiFullVersion&quot;</param>
+                        </action>
+                    </actions>
+                </event-block>
+            </sub-events>
+        </event-block>
+        <event-block disabled="1" sid="9918958850623057">
+            <conditions>
+                <condition id="0" name="On purchase success" sid="9925873149426645" type="IAP">
+                    <param id="0" name="Product ID">&quot;yupiFullVersion&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="0" name="Set text" sid="4610810247655261" type="DebugBox">
+                    <param id="0" name="Text">&quot;success&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block disabled="1" sid="5109592266272529">
+            <conditions>
+                <condition id="2" name="On purchase failed" sid="7201528910701188" type="IAP">
+                    <param id="0" name="Product ID">&quot;yupiFullVersion&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="0" name="Set text" sid="3965041720384385" type="DebugBox">
+                    <param id="0" name="Text">&quot;failed&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>

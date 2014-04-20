@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<c2eventsheet>
+    <!--All the 'name' attributes are ignored by Construct 2 - they are there for readability only.-->
+    <name>Splash Event</name>
+    <events>
+        <variable constant="0" name="LoadingPercentage" sid="5753895970793655" static="0" type="number">0</variable>
+        <event-block sid="5500012562907817">
+            <conditions>
+                <condition id="-2" name="On start of layout" sid="8515373843599115" type="System" />
+            </conditions>
+            <actions>
+                <action id="-28" name="Set canvas size" sid="1159922646114841" type="System">
+                    <param id="0" name="Width">1280</param>
+                    <param id="1" name="Height">768</param>
+                </action>
+                <action id="5" name="Set web font" sid="6556111660376572" type="LoadingBox">
+                    <param id="0" name="Family name">&quot;allerregular&quot;</param>
+                    <param id="1" name="CSS URL">&quot;stylesheet.css&quot;</param>
+                </action>
+                <action behavior="Timer" id="0" name="Start timer" sid="547464195944625" type="SplashScreen">
+                    <param id="0" name="Duration">2.0</param>
+                    <param id="1" name="Type">0</param>
+                    <param id="2" name="Tag">&quot;splash_timer&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="4052120559288991">
+            <conditions>
+                <condition id="-1" name="Every tick" sid="8508447198719981" type="System" />
+            </conditions>
+            <actions>
+                <action id="-9" name="Set value" sid="7739913495565386" type="System">
+                    <param id="0" name="Variable">BackgroundVariation</param>
+                    <param id="1" name="Value">round(loadingprogress * 100)</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="3183264023029653">
+            <conditions>
+                <condition id="-14" name="Compare variable" sid="739343448952136" type="System">
+                    <param id="0" name="Variable">LoadingPercentage</param>
+                    <param id="1" name="Comparison">3</param>
+                    <param id="2" name="Value">100</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action id="0" name="Set text" sid="2162509224499544" type="LoadingBox">
+                    <param id="0" name="Text">&quot;Loading...&quot; &amp; LoadingPercentage &amp; &quot;%&quot;</param>
+                </action>
+            </actions>
+        </event-block>
+        <event-block sid="5257911057548135">
+            <conditions>
+                <condition behavior="Timer" id="0" name="On timer" sid="6319445933202163" type="SplashScreen">
+                    <param id="0" name="Tag">&quot;splash_timer&quot;</param>
+                </condition>
+            </conditions>
+            <actions>
+                <action behavior="Fade" id="1" name="Start fade" sid="6619414102548138" type="SplashScreen" />
+            </actions>
+        </event-block>
+        <event-block sid="6906243165233614">
+            <conditions>
+                <condition id="1" name="On any key pressed" sid="5022529454082876" type="Keyboard" />
+            </conditions>
+            <actions>
+                <action behavior="Fade" id="1" name="Start fade" sid="3304787085528547" type="SplashScreen" />
+            </actions>
+        </event-block>
+        <event-block sid="9449179171808471">
+            <conditions>
+                <condition id="1" name="On any touch end" sid="3681337697265758" type="Touch" />
+            </conditions>
+            <actions>
+                <action behavior="Fade" id="1" name="Start fade" sid="6744083403190157" type="SplashScreen" />
+            </actions>
+        </event-block>
+        <event-block sid="1632757081918497">
+            <conditions>
+                <condition behavior="Fade" id="0" name="On fade out finished" sid="4088815857783463" type="SplashScreen" />
+            </conditions>
+            <actions>
+                <action id="-28" name="Set canvas size" sid="236023718016472" type="System">
+                    <param id="0" name="Width">630</param>
+                    <param id="1" name="Height">360</param>
+                </action>
+                <action id="-2" name="Go to layout" sid="923834407561786" type="System">
+                    <param id="0" name="Layout">Game Layout</param>
+                </action>
+            </actions>
+        </event-block>
+    </events>
+</c2eventsheet>
